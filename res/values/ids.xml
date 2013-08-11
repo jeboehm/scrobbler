@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources><item name="dialog_settings_option_label" type="id"/><item name="dialog_settings_option_value" type="id"/></resources>
+<resources><item name="dialog_settings_option_label" type="id"/><item name="dialog_settings_option_value" type="id"/><item name="status_text_scrobblecounter" type="id"/><item name="status_text_queuecounter" type="id"/><item name="status_button_pausescrobbling" type="id"/><item name="status_button_settings" type="id"/></resources>

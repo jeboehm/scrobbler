@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/title_settings_overview"
+        android:id="@id/status_button_settings"
+        android:onClick="onSettingsClick" />
+
+    <ToggleButton
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/status_pause_scrobbling"
+        android:id="@id/status_button_pausescrobbling"
+        android:checked="true" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/status_scrobblecount_text"
+        android:id="@id/status_text_scrobblecounter" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/status_queuecount_text"
+        android:id="@id/status_text_queuecounter" />
+</LinearLayout>
