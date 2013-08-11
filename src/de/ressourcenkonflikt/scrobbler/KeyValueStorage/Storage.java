@@ -18,7 +18,7 @@ public class Storage {
     }
 
     private KeyValue findObjectWithKey(String key) {
-        for (KeyValue obj : this.key_values) {
+        for (KeyValue obj : key_values) {
             if (obj.getKey().equals(key)) {
                 return obj;
             }
@@ -28,7 +28,7 @@ public class Storage {
     }
 
     public String getValue(String key) {
-        KeyValue obj = this.findObjectWithKey(key);
+        KeyValue obj = findObjectWithKey(key);
 
         if (obj != null) {
             return obj.getValue();
@@ -38,13 +38,13 @@ public class Storage {
     }
 
     public void setValue(String key, String value) {
-        KeyValue obj = this.findObjectWithKey(key);
+        KeyValue obj = findObjectWithKey(key);
 
         if (obj != null) {
             obj.setValue(value);
         } else {
             obj = new KeyValue(key, value);
-            this.key_values.add(obj);
+            key_values.add(obj);
         }
     }
 }

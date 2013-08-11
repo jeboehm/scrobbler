@@ -29,32 +29,33 @@ public class SettingsDialogBuilder {
         this.parent_activity = parent_activity;
         this.layout = layout;
         this.option_name = option_name;
-        this.storage = Storage.getInstance();
 
-        this.label_view = (TextView) layout.findViewById(R.id.dialog_settings_option_label);
-        this.value_edit = (EditText) layout.findViewById(R.id.dialog_settings_option_value);
+        storage = Storage.getInstance();
+
+        label_view = (TextView) layout.findViewById(R.id.dialog_settings_option_label);
+        value_edit = (EditText) layout.findViewById(R.id.dialog_settings_option_value);
     }
 
     private String getEditValue() {
-        return this.value_edit.getText().toString();
+        return value_edit.getText().toString();
     }
 
     public AlertDialog getDialog() {
-        this.fillDialogElements();
-        AlertDialog.Builder dialog_builder = this.createBuilder();
+        fillDialogElements();
+        AlertDialog.Builder dialog_builder = createBuilder();
 
         return dialog_builder.create();
     }
 
     private void fillDialogElements() {
-        this.label_view.setText(this.option_name);
-        this.value_edit.setText(this.storage.getValue(this.option_name));
+        label_view.setText(option_name);
+        value_edit.setText(storage.getValue(option_name));
     }
 
     private AlertDialog.Builder createBuilder() {
-        AlertDialog.Builder dialog_builder = new AlertDialog.Builder(this.parent_activity);
+        AlertDialog.Builder dialog_builder = new AlertDialog.Builder(parent_activity);
         dialog_builder
-                .setView(this.layout)
+                .setView(layout)
                 .setPositiveButton(R.string.button_ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {

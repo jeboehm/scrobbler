@@ -26,10 +26,10 @@ public class SettingsActivity extends ListActivity implements AdapterView.OnItem
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        this.setContentView(R.layout.activity_settings);
-        this.setListAdapter(createAdapter());
+        setContentView(R.layout.activity_settings);
+        setListAdapter(createAdapter());
 
-        this.getListView().setOnItemClickListener(this);
+        getListView().setOnItemClickListener(this);
     }
 
     /**
@@ -38,12 +38,12 @@ public class SettingsActivity extends ListActivity implements AdapterView.OnItem
      * @return List
      */
     protected ListAdapter createAdapter() {
-        return new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, this.option_names);
+        return new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, option_names);
     }
 
     protected SettingsDialogBuilder getDialogBuilder(String name) {
-        View layout = this.getLayoutInflater().inflate(R.layout.dialog_settings,
-                (ViewGroup) this.findViewById(R.layout.activity_settings));
+        View layout = getLayoutInflater().inflate(R.layout.dialog_settings,
+                (ViewGroup) findViewById(R.layout.activity_settings));
 
         return new SettingsDialogBuilder(this, layout, name);
     }
@@ -56,8 +56,8 @@ public class SettingsActivity extends ListActivity implements AdapterView.OnItem
      */
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-        String option_name = this.option_names[i];
+        String option_name = option_names[i];
 
-        this.getDialogBuilder(option_name).getDialog().show();
+        getDialogBuilder(option_name).getDialog().show();
     }
 }
