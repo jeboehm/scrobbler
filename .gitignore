@@ -27,3 +27,6 @@ proguard/
 *.ipr
 *.iws
 .idea/
+
+# Custom
+src/de/ressourcenkonflikt/scrobbler/Secrets.java
