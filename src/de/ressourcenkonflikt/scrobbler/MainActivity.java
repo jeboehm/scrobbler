@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 import de.ressourcenkonflikt.scrobbler.Media.MediaBroadcastReceiver;
+import de.ressourcenkonflikt.scrobbler.ScrobbleQueue.Queue;
 
 /**
  * Created with IntelliJ IDEA.
@@ -16,14 +17,19 @@ import de.ressourcenkonflikt.scrobbler.Media.MediaBroadcastReceiver;
  * To change this template use File | Settings | File Templates.
  */
 public class MainActivity extends Activity {
+    private static MediaBroadcastReceiver media_broadcast_receiver;
+
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_status);
 
         setScrobbleCounter(0);
-        setQueueCounter(0);
+        setQueueCounter(Queue.getInstance().getSize());
 
-        registerReceiver(new MediaBroadcastReceiver(), getIntentFilterForMediaBroadcast());
+        if (media_broadcast_receiver == null) {
+            media_broadcast_receiver = new MediaBroadcastReceiver();
+            registerReceiver(media_broadcast_receiver, getIntentFilterForMediaBroadcast());
+        }
 
         //moveTaskToBack(true);
     }
@@ -56,5 +62,15 @@ public class MainActivity extends Activity {
         intent_filter.addAction("com.android.music.queuechanged");
 
         return intent_filter;
+    }
+
+    /**
+     * Refresh the view.
+     */
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        setQueueCounter(Queue.getInstance().getSize());
     }
 }
