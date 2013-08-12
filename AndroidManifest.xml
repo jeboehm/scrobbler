@@ -21,5 +21,7 @@
         <activity
             android:name=".PrefsActivity"
             android:label="@string/title_settings" />
+
+        <receiver android:name=".Media.MediaBroadcastReceiver" />
     </application>
 </manifest>

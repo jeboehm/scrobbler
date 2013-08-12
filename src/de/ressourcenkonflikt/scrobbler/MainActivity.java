@@ -2,9 +2,11 @@ package de.ressourcenkonflikt.scrobbler;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+import de.ressourcenkonflikt.scrobbler.Media.MediaBroadcastReceiver;
 
 /**
  * Created with IntelliJ IDEA.
@@ -20,6 +22,9 @@ public class MainActivity extends Activity {
 
         setScrobbleCounter(0);
         setQueueCounter(0);
+
+        registerReceiver(new MediaBroadcastReceiver(), getIntentFilterForMediaBroadcast());
+
         //moveTaskToBack(true);
     }
 
@@ -40,5 +45,16 @@ public class MainActivity extends Activity {
         view.setText(
                 getString(R.string.status_queuecount_text, counter.toString())
         );
+    }
+
+    private IntentFilter getIntentFilterForMediaBroadcast() {
+        IntentFilter intent_filter = new IntentFilter();
+
+        intent_filter.addAction("com.android.music.metachanged");
+        intent_filter.addAction("com.android.music.playstatechanged");
+        intent_filter.addAction("com.android.music.playbackcomplete");
+        intent_filter.addAction("com.android.music.queuechanged");
+
+        return intent_filter;
     }
 }
