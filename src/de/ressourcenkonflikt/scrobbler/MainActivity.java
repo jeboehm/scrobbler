@@ -1,12 +1,10 @@
-package de.ressourcenkonflikt.scrobbler.Status;
+package de.ressourcenkonflikt.scrobbler;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
-import de.ressourcenkonflikt.scrobbler.PrefsActivity;
-import de.ressourcenkonflikt.scrobbler.R;
 
 /**
  * Created with IntelliJ IDEA.
@@ -15,13 +13,14 @@ import de.ressourcenkonflikt.scrobbler.R;
  * Time: 22:53
  * To change this template use File | Settings | File Templates.
  */
-public class StatusActivity extends Activity {
+public class MainActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_status);
 
         setScrobbleCounter(0);
         setQueueCounter(0);
+        //moveTaskToBack(true);
     }
 
     public void onSettingsClick(View view) {
