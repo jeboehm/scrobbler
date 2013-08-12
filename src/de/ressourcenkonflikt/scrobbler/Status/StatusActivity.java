@@ -5,8 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+import de.ressourcenkonflikt.scrobbler.PrefsActivity;
 import de.ressourcenkonflikt.scrobbler.R;
-import de.ressourcenkonflikt.scrobbler.Settings.SettingsActivity;
 
 /**
  * Created with IntelliJ IDEA.
@@ -25,7 +25,7 @@ public class StatusActivity extends Activity {
     }
 
     public void onSettingsClick(View view) {
-        Intent i = new Intent(view.getContext(), SettingsActivity.class);
+        Intent i = new Intent(view.getContext(), PrefsActivity.class);
         startActivityForResult(i, 0);
     }
 
