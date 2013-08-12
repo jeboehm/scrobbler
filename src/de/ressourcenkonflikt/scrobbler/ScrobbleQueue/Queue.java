@@ -46,4 +46,17 @@ public class Queue {
 
         return true;
     }
+
+    public Song shift() {
+        Song return_song;
+
+        if (getSize() > 0) {
+            return_song = queue.get(0);
+            queue.remove(0);
+
+            return return_song;
+        }
+
+        return null;
+    }
 }
