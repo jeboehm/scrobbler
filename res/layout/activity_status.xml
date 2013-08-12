@@ -12,13 +12,6 @@
         android:id="@id/status_button_settings"
         android:onClick="onSettingsClick" />
 
-    <ToggleButton
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/status_pause_scrobbling"
-        android:id="@id/status_button_pausescrobbling"
-        android:checked="true" />
-
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
