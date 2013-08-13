@@ -1,4 +1,4 @@
-package de.ressourcenkonflikt.scrobbler.Media;
+package de.ressourcenkonflikt.scrobbler.Scrobbler;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;

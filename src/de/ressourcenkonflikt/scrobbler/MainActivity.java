@@ -2,11 +2,9 @@ package de.ressourcenkonflikt.scrobbler;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
-import de.ressourcenkonflikt.scrobbler.Media.MediaBroadcastReceiver;
 import de.ressourcenkonflikt.scrobbler.ScrobbleQueue.Queue;
 
 /**
@@ -17,19 +15,11 @@ import de.ressourcenkonflikt.scrobbler.ScrobbleQueue.Queue;
  * To change this template use File | Settings | File Templates.
  */
 public class MainActivity extends Activity {
-    private static MediaBroadcastReceiver media_broadcast_receiver;
-
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_status);
-
         setScrobbleCounter(0);
         setQueueCounter(Queue.getInstance().getSize());
-
-        if (media_broadcast_receiver == null) {
-            media_broadcast_receiver = new MediaBroadcastReceiver();
-            registerReceiver(media_broadcast_receiver, getIntentFilterForMediaBroadcast());
-        }
 
         //moveTaskToBack(true);
     }
@@ -51,17 +41,6 @@ public class MainActivity extends Activity {
         view.setText(
                 getString(R.string.status_queuecount_text, counter.toString())
         );
-    }
-
-    private IntentFilter getIntentFilterForMediaBroadcast() {
-        IntentFilter intent_filter = new IntentFilter();
-
-        intent_filter.addAction("com.android.music.metachanged");
-        intent_filter.addAction("com.android.music.playstatechanged");
-        intent_filter.addAction("com.android.music.playbackcomplete");
-        intent_filter.addAction("com.android.music.queuechanged");
-
-        return intent_filter;
     }
 
     /**
