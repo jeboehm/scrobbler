@@ -19,16 +19,11 @@ import java.util.Date;
  * Time: 23:53
  * To change this template use File | Settings | File Templates.
  */
-public class Scrobbler {
-    private static final Scrobbler instance = new Scrobbler();
+public class ScrobblerClient implements ClientInterface {
     private Session session;
     private boolean isAuthenticated = false;
 
-    public static Scrobbler getInstance() {
-        return instance;
-    }
-
-    public Scrobbler() {
+    public ScrobblerClient() {
         Caller.getInstance().setUserAgent("scrobbler for Parrot Asteroid Smart");
         Caller.getInstance().setCache(getCache());
     }
@@ -69,17 +64,17 @@ public class Scrobbler {
         }
     }
 
-    public boolean scrobbleTrack(String artist, String song, Date date) throws NotAuthenticatedException {
+    public boolean scrobbleTrack(String artist, String track, Date date) throws NotAuthenticatedException {
         if (!isAuthenticated) {
             throw new NotAuthenticatedException();
         }
 
-        ScrobbleResult scrobble_result = Track.scrobble(artist, song, getTime(date), session);
+        ScrobbleResult scrobble_result = Track.scrobble(artist, track, getTime(date), session);
 
         return scrobble_result.isSuccessful();
     }
 
-    public boolean scrobbleTrack(String artist, String song) throws NotAuthenticatedException {
-        return scrobbleTrack(artist, song, new Date());
+    public boolean scrobbleTrack(String artist, String track) throws NotAuthenticatedException {
+        return scrobbleTrack(artist, track, new Date());
     }
 }
