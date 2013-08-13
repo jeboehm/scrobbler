@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * Time: 21:33
  * To change this template use File | Settings | File Templates.
  */
-public class Queue {
+public class Queue implements QueueInterface {
     private static Queue ourInstance = new Queue();
     private ArrayList<Song> queue = new ArrayList<Song>();
 
@@ -47,6 +47,9 @@ public class Queue {
         return true;
     }
 
+    /**
+     * Pull the first song from the queue.
+     */
     public Song shift() {
         Song return_song;
 
