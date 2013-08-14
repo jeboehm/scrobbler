@@ -1,4 +1,4 @@
-package de.ressourcenkonflikt.scrobbler.ScrobbleQueue;
+package de.ressourcenkonflikt.scrobbler.SongQueue;
 
 import java.util.Date;
 

@@ -1,11 +1,11 @@
-package de.ressourcenkonflikt.scrobbler;
+package de.ressourcenkonflikt.scrobbler.Receiver;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
-import de.ressourcenkonflikt.scrobbler.ScrobbleQueue.Queue;
-import de.ressourcenkonflikt.scrobbler.ScrobbleQueue.Song;
+import de.ressourcenkonflikt.scrobbler.SongQueue.Queue;
+import de.ressourcenkonflikt.scrobbler.SongQueue.Song;
 
 /**
  * Created with IntelliJ IDEA.
@@ -32,9 +32,9 @@ public class MediaBroadcastReceiver extends BroadcastReceiver {
         Song song = new Song(artist, track);
 
         if (queue.add(song)) {
-            Log.i("ScrobbleQueue", String.format("Added '%1$s - %2$s' to the queue.", artist, track));
+            Log.i("SongQueue", String.format("Added '%1$s - %2$s' to the queue.", artist, track));
         } else {
-            Log.i("ScrobbleQueue", String.format("Could not add '%1$s - %2$s' to the queue, recently played.",
+            Log.i("SongQueue", String.format("Could not add '%1$s - %2$s' to the queue, recently played.",
                     artist, track));
         }
     }

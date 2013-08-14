@@ -1,4 +1,4 @@
-package de.ressourcenkonflikt.scrobbler.ScrobbleQueue;
+package de.ressourcenkonflikt.scrobbler.SongQueue;
 
 import java.util.ArrayList;
 
@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * Time: 21:33
  * To change this template use File | Settings | File Templates.
  */
-public class Queue implements QueueInterface {
+public class Queue {
     private static Queue ourInstance = new Queue();
     private ArrayList<Song> queue = new ArrayList<Song>();
 

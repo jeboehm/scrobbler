@@ -1,11 +1,12 @@
-package de.ressourcenkonflikt.scrobbler;
+package de.ressourcenkonflikt.scrobbler.Activity;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
-import de.ressourcenkonflikt.scrobbler.ScrobbleQueue.Queue;
+import de.ressourcenkonflikt.scrobbler.R;
+import de.ressourcenkonflikt.scrobbler.SongQueue.Queue;
 
 /**
  * Created with IntelliJ IDEA.

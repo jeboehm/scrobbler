@@ -1,7 +1,8 @@
-package de.ressourcenkonflikt.scrobbler;
+package de.ressourcenkonflikt.scrobbler.Activity;
 
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
+import de.ressourcenkonflikt.scrobbler.R;
 
 /**
  * Created with IntelliJ IDEA.

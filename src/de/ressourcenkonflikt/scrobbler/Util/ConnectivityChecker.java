@@ -1,4 +1,4 @@
-package de.ressourcenkonflikt.scrobbler;
+package de.ressourcenkonflikt.scrobbler.Util;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
