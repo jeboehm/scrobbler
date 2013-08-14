@@ -12,6 +12,7 @@ import java.util.ArrayList;
 public class Queue {
     private static Queue ourInstance = new Queue();
     private ArrayList<Song> queue = new ArrayList<Song>();
+    private ArrayList<Song> queue_history = new ArrayList<Song>();
 
     public static Queue getInstance() {
         return ourInstance;
@@ -25,7 +26,11 @@ public class Queue {
     }
 
     public boolean add(Song new_song) {
-        for (Song queued_song : queue) {
+        ArrayList<Song> merged_queue = new ArrayList<Song>();
+        merged_queue.addAll(queue);
+        merged_queue.addAll(queue_history);
+
+        for (Song queued_song : merged_queue) {
             if (queued_song.isSameSong(new_song)) {
                 /*
                  * The same song is already queued.
@@ -58,6 +63,8 @@ public class Queue {
      * Remove the given song from the queue.
      */
     public boolean remove(Song song) {
+        queue_history.add(song);
+
         return queue.remove(song);
     }
 }
