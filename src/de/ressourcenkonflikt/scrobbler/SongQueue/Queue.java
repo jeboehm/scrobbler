@@ -32,11 +32,7 @@ public class Queue {
                  * If the queued song was played in the last
                  * 30 seconds, don't add the new song.
                  */
-
-                long new_song_seconds = new_song.getPlayedAt().getTime() / 1000;
-                long queued_song_seconds = queued_song.getPlayedAt().getTime() / 1000;
-
-                if ((new_song_seconds - queued_song_seconds) < 30) {
+                if ((new_song.getPlayedAt().getTime() - queued_song.getPlayedAt().getTime()) < 30 * 1000) {
                     return false;
                 }
             }
