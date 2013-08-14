@@ -20,8 +20,13 @@ import java.util.Date;
  * To change this template use File | Settings | File Templates.
  */
 public class Client {
+    private static Client ourInstance = new Client();
     private Session session;
     private boolean isAuthenticated = false;
+
+    public static Client getInstance() {
+        return ourInstance;
+    }
 
     public Client() {
         Caller.getInstance().setUserAgent("scrobbler for Parrot Asteroid Smart");

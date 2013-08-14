@@ -20,17 +20,15 @@ import de.ressourcenkonflikt.scrobbler.Util.ConnectivityChecker;
  * To change this template use File | Settings | File Templates.
  */
 public class QueueNewSongReceiver extends BroadcastReceiver {
-    private Client client = new Client();
-
     public void onReceive(Context context, Intent intent) {
         Song song = Queue.getInstance().get();
         ConnectivityChecker con_checker = new ConnectivityChecker(context);
 
         if (con_checker.getIsOnline()) {
             if (song != null) {
-                if (client.getIsAuthenticated() || authenticateClient(context)) {
+                if (Client.getInstance().getIsAuthenticated() || authenticateClient(context)) {
                     try {
-                        if (client.scrobbleTrack(song.getArtist(), song.getTrack(), song.getPlayedAt())) {
+                        if (Client.getInstance().scrobbleTrack(song.getArtist(), song.getTrack(), song.getPlayedAt())) {
                             Queue.getInstance().remove(song);
                             Log.i(getClass().getCanonicalName(), "Track scrobbled successfully.");
                         } else {
@@ -54,7 +52,7 @@ public class QueueNewSongReceiver extends BroadcastReceiver {
         String password = preferences.getString("password", "");
 
         try {
-            if (!client.authenticate(username, password)) {
+            if (!Client.getInstance().authenticate(username, password)) {
                 throw new Exception();
             }
         } catch (Exception e) {
