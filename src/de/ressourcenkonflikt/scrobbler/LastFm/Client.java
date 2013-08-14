@@ -77,4 +77,8 @@ public class Client {
     public boolean scrobbleTrack(String artist, String track) throws NotAuthenticatedException {
         return scrobbleTrack(artist, track, new Date());
     }
+
+    public boolean getIsAuthenticated() {
+        return isAuthenticated;
+    }
 }

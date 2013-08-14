@@ -48,18 +48,20 @@ public class Queue {
     }
 
     /**
-     * Pull the first song from the queue.
+     * Get first song in queue.
      */
-    public Song shift() {
-        Song return_song;
-
+    public Song get() {
         if (getSize() > 0) {
-            return_song = queue.get(0);
-            queue.remove(0);
-
-            return return_song;
+            return queue.get(0);
         }
 
         return null;
+    }
+
+    /**
+     * Remove the given song from the queue.
+     */
+    public boolean remove(Song song) {
+        return queue.remove(song);
     }
 }

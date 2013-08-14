@@ -31,5 +31,10 @@
                 <action android:name="com.android.music.queuechanged"/>
             </intent-filter>
         </receiver>
+        <receiver android:name=".Receiver.QueueNewSongReceiver">
+            <intent-filter>
+                <action android:name="de.ressourcenkonflikt.scrobbler.queue.newitem"/>
+            </intent-filter>
+        </receiver>
     </application>
 </manifest>
