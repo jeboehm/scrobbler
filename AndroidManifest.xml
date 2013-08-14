@@ -23,7 +23,7 @@
             android:name=".PrefsActivity"
             android:label="@string/title_settings"/>
 
-        <receiver android:name=".Scrobbler.MediaBroadcastReceiver">
+        <receiver android:name=".MediaBroadcastReceiver">
             <intent-filter>
                 <action android:name="com.android.music.metachanged"/>
                 <action android:name="com.android.music.playstatechanged"/>
