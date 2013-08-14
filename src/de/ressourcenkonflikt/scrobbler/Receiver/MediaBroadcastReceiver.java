@@ -32,10 +32,12 @@ public class MediaBroadcastReceiver extends BroadcastReceiver {
         Song song = new Song(artist, track);
 
         if (queue.add(song)) {
-            Log.i("SongQueue", String.format("Added '%1$s - %2$s' to the queue.", artist, track));
+            Log.i(getClass().getCanonicalName(),
+                    String.format("Added '%1$s - %2$s' to the queue.", artist, track));
         } else {
-            Log.i("SongQueue", String.format("Could not add '%1$s - %2$s' to the queue, recently played.",
-                    artist, track));
+            Log.i(getClass().getCanonicalName(),
+                    String.format("Could not add '%1$s - %2$s' to the queue, recently played.",
+                            artist, track));
         }
     }
 }
