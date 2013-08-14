@@ -31,13 +31,5 @@
                 <action android:name="com.android.music.queuechanged"/>
             </intent-filter>
         </receiver>
-        <receiver android:name=".Scrobbler.ScheduleReceiver">
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED"/>
-                <action android:name="android.intent.action.ACTION_EXTERNAL_APPLICATIONS_AVAILABLE"/>
-            </intent-filter>
-        </receiver>
-
-        <service android:name=".Scrobbler.ManagerService"/>
     </application>
 </manifest>
