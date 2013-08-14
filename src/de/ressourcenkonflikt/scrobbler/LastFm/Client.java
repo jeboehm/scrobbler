@@ -19,11 +19,11 @@ import java.util.Date;
  * Time: 23:53
  * To change this template use File | Settings | File Templates.
  */
-public class ScrobblerClient {
+public class Client {
     private Session session;
     private boolean isAuthenticated = false;
 
-    public ScrobblerClient() {
+    public Client() {
         Caller.getInstance().setUserAgent("scrobbler for Parrot Asteroid Smart");
         Caller.getInstance().setCache(getCache());
     }
