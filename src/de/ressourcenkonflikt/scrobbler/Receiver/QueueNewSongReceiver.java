@@ -3,14 +3,9 @@ package de.ressourcenkonflikt.scrobbler.Receiver;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
-import android.util.Log;
-import de.ressourcenkonflikt.scrobbler.LastFm.Client;
-import de.ressourcenkonflikt.scrobbler.LastFm.Exception.NotAuthenticatedException;
 import de.ressourcenkonflikt.scrobbler.SongQueue.Queue;
-import de.ressourcenkonflikt.scrobbler.SongQueue.Song;
 import de.ressourcenkonflikt.scrobbler.Util.ConnectivityChecker;
+import de.ressourcenkonflikt.scrobbler.Util.ScrobbleHandler;
 
 /**
  * Created with IntelliJ IDEA.
@@ -20,47 +15,13 @@ import de.ressourcenkonflikt.scrobbler.Util.ConnectivityChecker;
  * To change this template use File | Settings | File Templates.
  */
 public class QueueNewSongReceiver extends BroadcastReceiver {
+    ScrobbleHandler handler;
+
     public void onReceive(Context context, Intent intent) {
-        Song song = Queue.getInstance().get();
-        ConnectivityChecker con_checker = new ConnectivityChecker(context);
-
-        if (con_checker.getIsOnline()) {
-            if (song != null) {
-                if (Client.getInstance().getIsAuthenticated() || authenticateClient(context)) {
-                    try {
-                        if (Client.getInstance().scrobbleTrack(song.getArtist(), song.getTrack(), song.getPlayedAt())) {
-                            Queue.getInstance().remove(song);
-                            Log.i(getClass().getCanonicalName(), "Track scrobbled successfully.");
-                        } else {
-                            Log.e(getClass().getCanonicalName(), "Can't scrobble track, aborting..");
-                        }
-                    } catch (NotAuthenticatedException e) {
-                        Log.e(getClass().getCanonicalName(), "Could not authenticate, aborting..");
-                    }
-                }
-            } else {
-                Log.i(getClass().getCanonicalName(), "No song in queue, aborting..");
-            }
-        } else {
-            Log.i(getClass().getCanonicalName(), "We're not online, aborting..");
-        }
-    }
-
-    private boolean authenticateClient(Context context) {
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-        String username = preferences.getString("username", "");
-        String password = preferences.getString("password", "");
-
-        try {
-            if (!Client.getInstance().authenticate(username, password)) {
-                throw new Exception();
-            }
-        } catch (Exception e) {
-            Log.e(getClass().getCanonicalName(), "Could not authenticate, aborting..");
-            return false;
+        if (handler == null) {
+            handler = new ScrobbleHandler(new ConnectivityChecker(context), context);
         }
 
-        Log.i(getClass().getCanonicalName(), "Successfully authenticated.");
-        return true;
+        handler.scrobbleSong(Queue.getInstance().get());
     }
 }
