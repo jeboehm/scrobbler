@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+import de.ressourcenkonflikt.scrobbler.LastFm.Client;
 import de.ressourcenkonflikt.scrobbler.R;
 import de.ressourcenkonflikt.scrobbler.SongQueue.Queue;
 
@@ -19,10 +20,8 @@ public class MainActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_status);
-        setScrobbleCounter(0);
+        setScrobbleCounter(Client.getInstance().getSuccessCounter());
         setQueueCounter(Queue.getInstance().getSize());
-
-        //moveTaskToBack(true);
     }
 
     public void onSettingsClick(View view) {
@@ -52,5 +51,6 @@ public class MainActivity extends Activity {
         super.onResume();
 
         setQueueCounter(Queue.getInstance().getSize());
+        setScrobbleCounter(Client.getInstance().getSuccessCounter());
     }
 }

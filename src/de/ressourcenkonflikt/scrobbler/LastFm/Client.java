@@ -23,6 +23,7 @@ public class Client {
     private static Client ourInstance = new Client();
     private Session session;
     private boolean isAuthenticated = false;
+    private int success_counter = 0;
 
     public static Client getInstance() {
         return ourInstance;
@@ -76,6 +77,10 @@ public class Client {
 
         ScrobbleResult scrobble_result = Track.scrobble(artist, track, getTime(date), session);
 
+        if (scrobble_result.isSuccessful()) {
+            success_counter++;
+        }
+
         return scrobble_result.isSuccessful();
     }
 
@@ -85,5 +90,9 @@ public class Client {
 
     public boolean getIsAuthenticated() {
         return isAuthenticated;
+    }
+
+    public int getSuccessCounter() {
+        return success_counter;
     }
 }
