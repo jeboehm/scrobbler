@@ -1,15 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <PreferenceCategory
+        android:summary="General values"
+        android:title="General">
+        <CheckBoxPreference
+            android:key="enabled"
+            android:summary="Enable/disable the scrobbler"
+            android:title="Enable"/>
+    </PreferenceCategory>
+    <PreferenceCategory
         android:summary="Username and password information"
         android:title="Login information">
         <EditTextPreference
             android:key="username"
             android:summary="Please enter your last.fm username"
-            android:title="Username" />
+            android:title="Username"/>
         <EditTextPreference
             android:key="password"
             android:summary="Enter your password"
-            android:title="Password" />
+            android:title="Password"/>
     </PreferenceCategory>
 </PreferenceScreen>

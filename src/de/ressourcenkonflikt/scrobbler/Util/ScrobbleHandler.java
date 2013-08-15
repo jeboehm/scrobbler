@@ -28,10 +28,13 @@ public class ScrobbleHandler {
         this.context = context;
     }
 
+    private SharedPreferences getPreferences() {
+        return PreferenceManager.getDefaultSharedPreferences(context);
+    }
+
     private boolean authenticateClient() {
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-        String username = preferences.getString("username", "");
-        String password = preferences.getString("password", "");
+        String username = getPreferences().getString("username", "");
+        String password = getPreferences().getString("password", "");
 
         try {
             if (!Client.getInstance().authenticate(username, password)) {
@@ -46,28 +49,36 @@ public class ScrobbleHandler {
         return true;
     }
 
-    public int scrobbleSong(Song song) {
-        if (con_checker.getIsOnline()) {
-            if (song != null) {
-                if (Client.getInstance().getIsAuthenticated() || authenticateClient()) {
-                    try {
-                        if (Client.getInstance().scrobbleTrack(song.getArtist(), song.getTrack(), song.getPlayedAt())) {
-                            Queue.getInstance().remove(song);
-                            Log.i(getClass().getCanonicalName(), "Track scrobbled successfully.");
+    private boolean getScrobblerIsEnabled() {
+        return getPreferences().getBoolean("enabled", false);
+    }
 
-                            return RESULT_NEXT;
-                        } else {
-                            Log.e(getClass().getCanonicalName(), "Can't scrobble track, aborting..");
+    public int scrobbleSong(Song song) {
+        if (getScrobblerIsEnabled()) {
+            if (con_checker.getIsOnline()) {
+                if (song != null) {
+                    if (Client.getInstance().getIsAuthenticated() || authenticateClient()) {
+                        try {
+                            if (Client.getInstance().scrobbleTrack(song.getArtist(), song.getTrack(), song.getPlayedAt())) {
+                                Queue.getInstance().remove(song);
+                                Log.i(getClass().getCanonicalName(), "Track scrobbled successfully.");
+
+                                return RESULT_NEXT;
+                            } else {
+                                Log.e(getClass().getCanonicalName(), "Can't scrobble track, aborting..");
+                            }
+                        } catch (NotAuthenticatedException e) {
+                            Log.e(getClass().getCanonicalName(), "Could not authenticate, aborting..");
                         }
-                    } catch (NotAuthenticatedException e) {
-                        Log.e(getClass().getCanonicalName(), "Could not authenticate, aborting..");
                     }
+                } else {
+                    Log.i(getClass().getCanonicalName(), "No song in queue, aborting..");
                 }
             } else {
-                Log.i(getClass().getCanonicalName(), "No song in queue, aborting..");
+                Log.i(getClass().getCanonicalName(), "We're not online, aborting..");
             }
         } else {
-            Log.i(getClass().getCanonicalName(), "We're not online, aborting..");
+            Log.i(getClass().getCanonicalName(), "Scrobbler is not enabled, aborting..");
         }
 
         return RESULT_STOP;
