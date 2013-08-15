@@ -22,6 +22,12 @@ public class QueueNewSongReceiver extends BroadcastReceiver {
             handler = new ScrobbleHandler(new ConnectivityChecker(context), context);
         }
 
-        handler.scrobbleSong(Queue.getInstance().get());
+        while (Queue.getInstance().getSize() > 0) {
+            int result = handler.scrobbleSong(Queue.getInstance().get());
+
+            if (result == ScrobbleHandler.RESULT_STOP) {
+                break;
+            }
+        }
     }
 }

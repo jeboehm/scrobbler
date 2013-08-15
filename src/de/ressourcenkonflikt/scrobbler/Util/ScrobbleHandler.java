@@ -20,6 +20,9 @@ public class ScrobbleHandler {
     private ConnectivityChecker con_checker;
     private Context context;
 
+    public final static int RESULT_NEXT = 0;
+    public final static int RESULT_STOP = 1;
+
     public ScrobbleHandler(ConnectivityChecker con_checker, Context context) {
         this.con_checker = con_checker;
         this.context = context;
@@ -43,7 +46,7 @@ public class ScrobbleHandler {
         return true;
     }
 
-    public void scrobbleSong(Song song) {
+    public int scrobbleSong(Song song) {
         if (con_checker.getIsOnline()) {
             if (song != null) {
                 if (Client.getInstance().getIsAuthenticated() || authenticateClient()) {
@@ -51,6 +54,8 @@ public class ScrobbleHandler {
                         if (Client.getInstance().scrobbleTrack(song.getArtist(), song.getTrack(), song.getPlayedAt())) {
                             Queue.getInstance().remove(song);
                             Log.i(getClass().getCanonicalName(), "Track scrobbled successfully.");
+
+                            return RESULT_NEXT;
                         } else {
                             Log.e(getClass().getCanonicalName(), "Can't scrobble track, aborting..");
                         }
@@ -64,5 +69,7 @@ public class ScrobbleHandler {
         } else {
             Log.i(getClass().getCanonicalName(), "We're not online, aborting..");
         }
+
+        return RESULT_STOP;
     }
 }
