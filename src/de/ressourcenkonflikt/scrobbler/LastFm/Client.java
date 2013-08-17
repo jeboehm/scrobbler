@@ -97,10 +97,6 @@ public class Client {
         return scrobbleTrack(artist, track, new Date());
     }
 
-    public boolean getIsAuthenticated() {
-        return isAuthenticated;
-    }
-
     public int getSuccessCounter() {
         return success_counter;
     }
