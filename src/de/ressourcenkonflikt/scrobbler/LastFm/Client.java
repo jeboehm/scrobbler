@@ -22,8 +22,11 @@ import java.util.Date;
 public class Client {
     private static Client ourInstance = new Client();
     private Session session;
-    private boolean isAuthenticated = false;
     private int success_counter = 0;
+
+    private boolean isAuthenticated = false;
+    private String authenticated_username;
+    private String authenticated_password;
 
     public static Client getInstance() {
         return ourInstance;
@@ -50,15 +53,21 @@ public class Client {
     /**
      * Authenticate to the last.fm service.
      */
-    public boolean authenticate(String username, String password)
-            throws CouldNotConnectException, CustomErrorException {
+    public boolean authenticate(String username, String password) throws CouldNotConnectException, CustomErrorException {
+        if (isAuthenticated && username.equals(authenticated_username) && password.equals(authenticated_password)) {
+            return true;
+        }
+
         try {
             session = Authenticator.getMobileSession(username, password, Secrets.lastfm_api_key, Secrets.lastfm_api_secret);
 
             if (session == null) {
-                throw new CustomErrorException(Caller.getInstance().getLastResult().getErrorMessage());
+                throw new CustomErrorException(Caller.getInstance().getLastResult().getErrorMessage().trim());
             } else {
                 isAuthenticated = true;
+                authenticated_username = username;
+                authenticated_password = password;
+
                 return true;
             }
         } catch (CallException e) {
