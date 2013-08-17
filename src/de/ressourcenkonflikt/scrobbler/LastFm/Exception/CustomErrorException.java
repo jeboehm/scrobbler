@@ -13,4 +13,8 @@ public class CustomErrorException extends Exception {
     public CustomErrorException(String message) {
         this.message = message;
     }
+
+    public String getMessage() {
+        return message;
+    }
 }
