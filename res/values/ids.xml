@@ -4,5 +4,5 @@
     <item name="dialog_settings_option_value" type="id" />
     <item name="status_text_scrobblecounter" type="id" />
     <item name="status_text_queuecounter" type="id" />
-    <item name="status_button_settings" type="id" />
+    <item name="status_button_settings" type="id" /><item name="status_button_send_queue" type="id"/>
 </resources>
