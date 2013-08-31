@@ -8,6 +8,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 import de.ressourcenkonflikt.scrobbler.LastFm.Client;
 import de.ressourcenkonflikt.scrobbler.R;
 import de.ressourcenkonflikt.scrobbler.SongQueue.Queue;
@@ -55,10 +56,14 @@ public class StatusActivity extends Activity {
             int result = handler.scrobbleSong(Queue.getInstance().get());
 
             if (result == ScrobbleHandler.RESULT_STOP) {
-                break;
+                Toast toast = Toast.makeText(this, getResources().getString(R.string.message_could_not_flush_queue), 5);
+                toast.show();
+                return;
             }
         }
 
+        Toast toast = Toast.makeText(this, getResources().getString(R.string.message_queue_successfully_flushed), 5);
+        toast.show();
     }
 
     public void setScrobbleCounter(Integer counter) {
