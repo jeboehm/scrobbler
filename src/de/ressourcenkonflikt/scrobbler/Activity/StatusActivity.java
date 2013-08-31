@@ -3,6 +3,9 @@ package de.ressourcenkonflikt.scrobbler.Activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -83,6 +86,29 @@ public class StatusActivity extends Activity {
         } else {
             button.setEnabled(false);
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_main, menu);
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_main_preferences:
+                Intent i = new Intent(this, PreferencesActivity.class);
+                startActivity(i);
+                break;
+
+            case R.id.menu_main_about:
+                break;
+        }
+
+        return true;
     }
 
     /**

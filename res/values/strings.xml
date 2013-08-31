@@ -7,4 +7,6 @@
     <string name="title_preferences">Settings</string>
     <string name="status_scrobblecount_text">Scrobbled %1$s times since last (re-)start.</string>
     <string name="status_queuecount_text">%1$s items queued.</string>
+    <string name="menu_main_about">About</string>
+    <string name="menu_main_preferences">Settings</string>
 </resources>
