@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 import de.ressourcenkonflikt.scrobbler.LastFm.Client;
@@ -41,11 +40,6 @@ public class StatusActivity extends Activity {
         setContentView(R.layout.activity_status);
         setScrobbleCounter(Client.getInstance().getSuccessCounter());
         setQueueCounter(Queue.getInstance().getSize());
-    }
-
-    public void onSettingsClick(View view) {
-        Intent i = new Intent(view.getContext(), PreferencesActivity.class);
-        startActivityForResult(i, 0);
     }
 
     private void flushQueue() {
