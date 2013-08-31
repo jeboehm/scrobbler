@@ -2,6 +2,8 @@ package de.ressourcenkonflikt.scrobbler.Activity;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.text.Html;
+import android.widget.TextView;
 import de.ressourcenkonflikt.scrobbler.R;
 
 /**
@@ -28,5 +30,12 @@ public class AboutActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
+
+        setAboutText();
+    }
+
+    protected void setAboutText() {
+        TextView textview = (TextView) findViewById(R.id.about_textview);
+        textview.setText(Html.fromHtml(getResources().getString(R.string.text_about)));
     }
 }

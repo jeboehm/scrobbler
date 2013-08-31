@@ -6,4 +6,5 @@
     <item name="status_text_queuecounter" type="id"/>
     <item name="status_button_settings" type="id"/>
     <item name="status_button_flush_queue" type="id"/>
+    <item name="about_textview" type="id"/>
 </resources>

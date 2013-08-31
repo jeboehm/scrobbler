@@ -11,4 +11,11 @@
         android:id="@+id/imageView"
         android:src="@drawable/ic_app_logo"
         android:layout_gravity="center_horizontal"/>
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:id="@id/about_textview"
+        android:autoLink="web"
+        />
 </LinearLayout>
