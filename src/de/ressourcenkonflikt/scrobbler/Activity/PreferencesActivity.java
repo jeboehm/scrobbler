@@ -24,7 +24,7 @@ import de.ressourcenkonflikt.scrobbler.R;
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-public class PrefsActivity extends PreferenceActivity {
+public class PreferencesActivity extends PreferenceActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.prefs);

@@ -32,7 +32,7 @@ import de.ressourcenkonflikt.scrobbler.Util.ScrobbleHandler;
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-public class MainActivity extends Activity {
+public class StatusActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_status);
@@ -42,7 +42,7 @@ public class MainActivity extends Activity {
     }
 
     public void onSettingsClick(View view) {
-        Intent i = new Intent(view.getContext(), PrefsActivity.class);
+        Intent i = new Intent(view.getContext(), PreferencesActivity.class);
         startActivityForResult(i, 0);
     }
 
@@ -76,7 +76,7 @@ public class MainActivity extends Activity {
     }
 
     public void setSendQueueButtonState() {
-        Button button = (Button) findViewById(R.id.status_button_send_queue);
+        Button button = (Button) findViewById(R.id.status_button_flush_queue);
 
         if (Queue.getInstance().getSize() > 0) {
             button.setEnabled(true);

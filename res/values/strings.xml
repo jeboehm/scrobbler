@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">scrobbler</string>
+    <string name="app_name">Scrobbler for ASTEROID</string>
     <string name="button_ok">OK</string>
     <string name="button_cancel">Cancel</string>
-    <string name="setting_saved">Saved</string>
-    <string name="title_settings">Settings</string>
+    <string name="button_flush_queue">Flush queue</string>
+    <string name="message_preferences_saved">Preferences saved!</string>
+    <string name="title_preferences">Settings</string>
     <string name="status_scrobblecount_text">Scrobbled %1$s times since last (re-)start.</string>
-    <string name="status_queuecount_text">%1$s items queued.</string><string name="button_send_queue">Send queue</string>
+    <string name="status_queuecount_text">%1$s items queued.</string>
 </resources>

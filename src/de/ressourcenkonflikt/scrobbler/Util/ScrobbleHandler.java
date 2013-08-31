@@ -9,7 +9,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.util.Log;
-import de.ressourcenkonflikt.scrobbler.Activity.MainActivity;
+import de.ressourcenkonflikt.scrobbler.Activity.StatusActivity;
 import de.ressourcenkonflikt.scrobbler.LastFm.Client;
 import de.ressourcenkonflikt.scrobbler.LastFm.Exception.CouldNotConnectException;
 import de.ressourcenkonflikt.scrobbler.LastFm.Exception.CustomErrorException;
@@ -117,7 +117,7 @@ public class ScrobbleHandler {
                 (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         Notification new_notification = new Notification(R.drawable.sym_def_app_icon, ticker, System.currentTimeMillis());
 
-        Intent target_intent = new Intent(context, MainActivity.class);
+        Intent target_intent = new Intent(context, StatusActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, target_intent, Intent.FLAG_ACTIVITY_NEW_TASK);
 
         new_notification.defaults |= Notification.DEFAULT_SOUND;
