@@ -11,7 +11,6 @@ import android.widget.Toast;
 import de.ressourcenkonflikt.scrobbler.LastFm.Client;
 import de.ressourcenkonflikt.scrobbler.R;
 import de.ressourcenkonflikt.scrobbler.SongQueue.Queue;
-import de.ressourcenkonflikt.scrobbler.Util.ConnectivityChecker;
 import de.ressourcenkonflikt.scrobbler.Util.ScrobbleHandler;
 
 /**
@@ -44,7 +43,7 @@ public class StatusActivity extends Activity {
 
     private void flushQueue() {
         ScrobbleHandler handler =
-                new ScrobbleHandler(new ConnectivityChecker(getApplicationContext()), getApplicationContext());
+                new ScrobbleHandler(this);
 
         while (Queue.getInstance().getSize() > 0) {
             int result = handler.scrobbleSong(Queue.getInstance().get());

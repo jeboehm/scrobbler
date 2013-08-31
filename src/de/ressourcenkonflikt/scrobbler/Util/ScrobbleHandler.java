@@ -44,8 +44,8 @@ public class ScrobbleHandler {
     public final static int RESULT_NEXT = 0;
     public final static int RESULT_STOP = 1;
 
-    public ScrobbleHandler(ConnectivityChecker con_checker, Context context) {
-        this.con_checker = con_checker;
+    public ScrobbleHandler(Context context) {
+        this.con_checker = new ConnectivityChecker(context);
         this.context = context;
     }
 

@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.util.Log;
 import de.ressourcenkonflikt.scrobbler.SongQueue.Queue;
 import de.ressourcenkonflikt.scrobbler.SongQueue.Song;
-import de.ressourcenkonflikt.scrobbler.Util.ConnectivityChecker;
 import de.ressourcenkonflikt.scrobbler.Util.ScrobbleHandler;
 
 /**
@@ -35,7 +34,7 @@ public class QueueNewSongReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         if (queueSong(intent.getStringExtra("song_artist"), intent.getStringExtra("song_track"))) {
             if (handler == null) {
-                handler = new ScrobbleHandler(new ConnectivityChecker(context), context);
+                handler = new ScrobbleHandler(context);
             }
 
             while (Queue.getInstance().getSize() > 0) {
