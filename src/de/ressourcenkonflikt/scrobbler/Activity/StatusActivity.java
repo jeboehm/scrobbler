@@ -61,16 +61,12 @@ public class StatusActivity extends Activity {
 
     public void setScrobbleCounter(Integer counter) {
         TextView view = (TextView) findViewById(R.id.status_text_scrobblecounter);
-        view.setText(
-                getString(R.string.status_scrobblecount_text, counter.toString())
-        );
+        view.setText(counter.toString());
     }
 
     public void setQueueCounter(Integer counter) {
         TextView view = (TextView) findViewById(R.id.status_text_queuecounter);
-        view.setText(
-                getString(R.string.status_queuecount_text, counter.toString())
-        );
+        view.setText(counter.toString());
     }
 
     @Override

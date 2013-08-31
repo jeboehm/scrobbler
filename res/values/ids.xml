@@ -5,4 +5,5 @@
     <item name="status_text_scrobblecounter" type="id"/>
     <item name="status_text_queuecounter" type="id"/>
     <item name="about_textview" type="id"/>
+    <item name="status_list_view" type="id"/>
 </resources>

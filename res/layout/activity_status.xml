@@ -1,24 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<RelativeLayout
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:src="@drawable/ic_menu_info_details"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView1"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/imageView"
+        android:src="@drawable/ic_menu_preferences"/>
 
     <TextView
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/status_scrobblecount_text"
-        android:id="@id/status_text_scrobblecounter" />
+        android:text="0"
+        android:id="@id/status_text_queuecounter"
+        android:layout_toRightOf="@+id/imageView"
+        android:layout_alignTop="@id/status_text_scrobblecounter"/>
 
     <TextView
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/status_queuecount_text"
-        android:id="@id/status_text_queuecounter" />
+        android:text="0"
+        android:id="@id/status_text_scrobblecounter"
+        android:layout_toLeftOf="@+id/imageView1"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="16dp"/>
 
-    <TableLayout
+    <ListView
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
-    </TableLayout>
-</LinearLayout>
+        android:layout_height="fill_parent"
+        android:id="@id/status_list_view"
+        android:layout_alignLeft="@+id/imageView"
+        android:layout_below="@+id/imageView"/>
+</RelativeLayout>
