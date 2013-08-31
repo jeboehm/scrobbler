@@ -24,6 +24,9 @@
         <activity
             android:name=".Activity.PreferencesActivity"
             android:label="@string/title_preferences"/>
+        <activity
+            android:name=".Activity.AboutActivity"
+            android:label="@string/title_about"/>
 
         <receiver android:name=".Receiver.MediaBroadcastReceiver">
             <intent-filter>

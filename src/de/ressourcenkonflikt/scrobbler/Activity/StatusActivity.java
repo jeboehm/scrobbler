@@ -100,11 +100,13 @@ public class StatusActivity extends Activity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_main_preferences:
-                Intent i = new Intent(this, PreferencesActivity.class);
-                startActivity(i);
+                Intent activity_preferences = new Intent(this, PreferencesActivity.class);
+                startActivity(activity_preferences);
                 break;
 
             case R.id.menu_main_about:
+                Intent activity_about = new Intent(this, AboutActivity.class);
+                startActivity(activity_about);
                 break;
         }
 
