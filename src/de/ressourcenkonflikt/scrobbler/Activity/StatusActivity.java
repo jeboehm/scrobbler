@@ -7,7 +7,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 import de.ressourcenkonflikt.scrobbler.LastFm.Client;
 import de.ressourcenkonflikt.scrobbler.R;
@@ -41,7 +40,6 @@ public class StatusActivity extends Activity {
         setContentView(R.layout.activity_status);
         setScrobbleCounter(Client.getInstance().getSuccessCounter());
         setQueueCounter(Queue.getInstance().getSize());
-        setSendQueueButtonState();
     }
 
     public void onSettingsClick(View view) {
@@ -49,7 +47,7 @@ public class StatusActivity extends Activity {
         startActivityForResult(i, 0);
     }
 
-    public void onSendQueueClick(View view) {
+    private void flushQueue() {
         ScrobbleHandler handler =
                 new ScrobbleHandler(new ConnectivityChecker(getApplicationContext()), getApplicationContext());
 
@@ -61,7 +59,6 @@ public class StatusActivity extends Activity {
             }
         }
 
-        onResume();
     }
 
     public void setScrobbleCounter(Integer counter) {
@@ -78,16 +75,6 @@ public class StatusActivity extends Activity {
         );
     }
 
-    public void setSendQueueButtonState() {
-        Button button = (Button) findViewById(R.id.status_button_flush_queue);
-
-        if (Queue.getInstance().getSize() > 0) {
-            button.setEnabled(true);
-        } else {
-            button.setEnabled(false);
-        }
-    }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -99,6 +86,10 @@ public class StatusActivity extends Activity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.menu_main_flush_queue:
+                flushQueue();
+                break;
+
             case R.id.menu_main_preferences:
                 Intent activity_preferences = new Intent(this, PreferencesActivity.class);
                 startActivity(activity_preferences);
@@ -122,6 +113,5 @@ public class StatusActivity extends Activity {
 
         setQueueCounter(Queue.getInstance().getSize());
         setScrobbleCounter(Client.getInstance().getSuccessCounter());
-        setSendQueueButtonState();
     }
 }

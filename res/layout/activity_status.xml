@@ -8,14 +8,6 @@
     <Button
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="@string/button_flush_queue"
-        android:id="@id/status_button_flush_queue"
-        android:enabled="false"
-        android:onClick="onSendQueueClick"/>
-
-    <Button
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
         android:text="@string/title_preferences"
         android:id="@id/status_button_settings"
         android:onClick="onSettingsClick"

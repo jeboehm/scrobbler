@@ -2,6 +2,10 @@
 
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
+        android:id="@+id/menu_main_flush_queue"
+        android:title="@string/menu_main_flush_queue"
+        android:icon="@drawable/ic_menu_upload"/>
+    <item
         android:id="@+id/menu_main_preferences"
         android:title="@string/menu_main_preferences"
         android:icon="@drawable/ic_menu_preferences"/>
