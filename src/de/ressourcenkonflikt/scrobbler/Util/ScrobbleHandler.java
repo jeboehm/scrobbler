@@ -1,6 +1,5 @@
 package de.ressourcenkonflikt.scrobbler.Util;
 
-import android.R;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -14,6 +13,7 @@ import de.ressourcenkonflikt.scrobbler.LastFm.Client;
 import de.ressourcenkonflikt.scrobbler.LastFm.Exception.CouldNotConnectException;
 import de.ressourcenkonflikt.scrobbler.LastFm.Exception.CustomErrorException;
 import de.ressourcenkonflikt.scrobbler.LastFm.Exception.NotAuthenticatedException;
+import de.ressourcenkonflikt.scrobbler.R;
 import de.ressourcenkonflikt.scrobbler.SongQueue.Queue;
 import de.ressourcenkonflikt.scrobbler.SongQueue.Song;
 
@@ -68,9 +68,19 @@ public class ScrobbleHandler {
             Log.e(getClass().getCanonicalName(), "Could not connect to Last.fm, aborting..");
         } catch (CustomErrorException e) {
             if (e.getMessage() != null) {
-                sendNotification("Error", String.format("Can't scrobble track: %1$s", e.getMessage()), "Scrobble error");
+                sendNotification(
+                        context.getResources().getString(R.string.message_scrobbler_error_title),
+                        String.format(context.getResources().getString(R.string.message_lastfm_error_message),
+                                e.getMessage()),
+                        context.getResources().getString(R.string.message_scrobbler_error_title)
+                );
             } else {
-                sendNotification("Error", "Can't scrobble track, check settings!", "Scrobble error");
+                sendNotification(
+                        context.getResources().getString(R.string.message_scrobbler_error_title),
+                        context.getResources().getString(R.string.message_lastfm_error),
+                        context.getResources().getString(R.string.message_scrobbler_error_title)
+                );
+
             }
 
             Log.e(getClass().getCanonicalName(), String.format("Could not authenticate: %1$s", e.getMessage()));
@@ -136,7 +146,7 @@ public class ScrobbleHandler {
     private void sendNotification(String title, String text, String ticker) {
         NotificationManager notification_manager =
                 (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-        Notification new_notification = new Notification(R.drawable.sym_def_app_icon, ticker, System.currentTimeMillis());
+        Notification new_notification = new Notification(android.R.drawable.sym_def_app_icon, ticker, System.currentTimeMillis());
 
         Intent target_intent = new Intent(context, StatusActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, target_intent, Intent.FLAG_ACTIVITY_NEW_TASK);
