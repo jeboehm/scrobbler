@@ -146,7 +146,7 @@ public class ScrobbleHandler {
     private void sendNotification(String title, String text, String ticker) {
         NotificationManager notification_manager =
                 (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-        Notification new_notification = new Notification(android.R.drawable.sym_def_app_icon, ticker, System.currentTimeMillis());
+        Notification new_notification = new Notification(R.drawable.ic_app_logo, ticker, System.currentTimeMillis());
 
         Intent target_intent = new Intent(context, StatusActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, target_intent, Intent.FLAG_ACTIVITY_NEW_TASK);
