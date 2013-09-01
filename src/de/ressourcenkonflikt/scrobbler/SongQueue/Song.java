@@ -33,6 +33,12 @@ public class Song {
         this.playedAt = new Date();
     }
 
+    public Song(String artist, String track, Date playedAt) {
+        this.artist = artist;
+        this.track = track;
+        this.playedAt = playedAt;
+    }
+
     public String getArtist() {
         return artist;
     }
