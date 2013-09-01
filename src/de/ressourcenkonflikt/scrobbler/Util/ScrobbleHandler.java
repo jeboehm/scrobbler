@@ -17,6 +17,8 @@ import de.ressourcenkonflikt.scrobbler.LastFm.Exception.NotAuthenticatedExceptio
 import de.ressourcenkonflikt.scrobbler.SongQueue.Queue;
 import de.ressourcenkonflikt.scrobbler.SongQueue.Song;
 
+import java.util.ArrayList;
+
 /**
  * This file is part of scrobbler for ASTEROID.
  *
@@ -79,6 +81,25 @@ public class ScrobbleHandler {
 
     private boolean getScrobblerIsEnabled() {
         return getPreferences().getBoolean("enabled", false);
+    }
+
+    public ArrayList<String> getLastTracks() {
+        ArrayList<String> songs = new ArrayList<String>();
+
+        if (con_checker.getIsOnline() && authenticateClient()) {
+            try {
+                ArrayList<Song> recentTracks = Client.getInstance().getRecentTracks(1, 5);
+                Log.i(getClass().getCanonicalName(), String.format("Fetched %1$s tracks.", recentTracks.size()));
+
+                for (Song song : recentTracks) {
+                    songs.add(String.format("%1s - %2s", song.getArtist(), song.getTrack()));
+                }
+            } catch (NotAuthenticatedException e) {
+                Log.e(getClass().getCanonicalName(), "Could not authenticate, aborting..");
+            }
+        }
+
+        return songs;
     }
 
     public int scrobbleSong(Song song) {
