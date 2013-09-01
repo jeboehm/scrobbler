@@ -37,7 +37,7 @@ public class StatusActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_status);
-        setScrobbleCounter(Client.getInstance().getSuccessCounter());
+        setScrobbleCounter(Client.getInstance().getTracksScrobbledCount());
         setQueueCounter(Queue.getInstance().getSize());
     }
 
@@ -106,6 +106,6 @@ public class StatusActivity extends Activity {
         super.onResume();
 
         setQueueCounter(Queue.getInstance().getSize());
-        setScrobbleCounter(Client.getInstance().getSuccessCounter());
+        setScrobbleCounter(Client.getInstance().getTracksScrobbledCount());
     }
 }
