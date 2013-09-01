@@ -3,6 +3,7 @@ package de.ressourcenkonflikt.scrobbler.LastFm;
 import de.ressourcenkonflikt.scrobbler.LastFm.Exception.CouldNotConnectException;
 import de.ressourcenkonflikt.scrobbler.LastFm.Exception.CustomErrorException;
 import de.ressourcenkonflikt.scrobbler.LastFm.Exception.NotAuthenticatedException;
+import de.ressourcenkonflikt.scrobbler.LastFm.Transformer.TrackTransformer;
 import de.ressourcenkonflikt.scrobbler.Secrets;
 import de.ressourcenkonflikt.scrobbler.SongQueue.Song;
 import de.ressourcenkonflikt.scrobbler.Util.Unixtime;
@@ -11,6 +12,7 @@ import de.umass.lastfm.cache.MemoryCache;
 import de.umass.lastfm.scrobble.ScrobbleResult;
 
 import java.net.UnknownHostException;
+import java.util.ArrayList;
 
 /**
  * This file is part of scrobbler for ASTEROID.
@@ -92,6 +94,21 @@ public class Client {
         }
 
         return scrobbleResult.isSuccessful();
+    }
+
+    public ArrayList<Song> getRecentTracks(int page, int count) throws NotAuthenticatedException {
+        if (!isAuthenticated) {
+            throw new NotAuthenticatedException();
+        }
+
+        ArrayList<Song> songs = new ArrayList<Song>();
+        PaginatedResult<Track> recentTracks = User.getRecentTracks(session.getUsername(), page, count, session.getApiKey());
+
+        for (Track track : recentTracks) {
+            songs.add(TrackTransformer.transform(track));
+        }
+
+        return songs;
     }
 
     public int getTracksScrobbledCount() {
