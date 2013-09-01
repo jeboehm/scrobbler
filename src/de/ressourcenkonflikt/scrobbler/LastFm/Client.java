@@ -4,6 +4,7 @@ import de.ressourcenkonflikt.scrobbler.LastFm.Exception.CouldNotConnectException
 import de.ressourcenkonflikt.scrobbler.LastFm.Exception.CustomErrorException;
 import de.ressourcenkonflikt.scrobbler.LastFm.Exception.NotAuthenticatedException;
 import de.ressourcenkonflikt.scrobbler.Secrets;
+import de.ressourcenkonflikt.scrobbler.Util.Unixtime;
 import de.umass.lastfm.*;
 import de.umass.lastfm.cache.Cache;
 import de.umass.lastfm.cache.MemoryCache;
@@ -55,15 +56,6 @@ public class Client {
     }
 
     /**
-     * Get unixtime.
-     */
-    private int getTime(Date date) {
-        long unixtime = date.getTime() / 1000L;
-
-        return (int) unixtime;
-    }
-
-    /**
      * Authenticate to the last.fm service.
      */
     public boolean authenticate(String username, String password) throws CouldNotConnectException, CustomErrorException {
@@ -97,7 +89,7 @@ public class Client {
             throw new NotAuthenticatedException();
         }
 
-        ScrobbleResult scrobble_result = Track.scrobble(artist, track, getTime(date), session);
+        ScrobbleResult scrobble_result = Track.scrobble(artist, track, Unixtime.getUnixtime(date), session);
 
         if (scrobble_result.isSuccessful()) {
             success_counter++;
