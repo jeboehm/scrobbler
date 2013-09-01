@@ -87,7 +87,7 @@ public class ScrobbleHandler {
                 if (song != null) {
                     if (authenticateClient()) {
                         try {
-                            if (Client.getInstance().scrobbleTrack(song.getArtist(), song.getTrack(), song.getPlayedAt())) {
+                            if (Client.getInstance().scrobbleTrack(song)) {
                                 Queue.getInstance().remove(song);
                                 Log.i(getClass().getCanonicalName(), "Track scrobbled successfully.");
 

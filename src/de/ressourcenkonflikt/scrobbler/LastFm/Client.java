@@ -4,13 +4,13 @@ import de.ressourcenkonflikt.scrobbler.LastFm.Exception.CouldNotConnectException
 import de.ressourcenkonflikt.scrobbler.LastFm.Exception.CustomErrorException;
 import de.ressourcenkonflikt.scrobbler.LastFm.Exception.NotAuthenticatedException;
 import de.ressourcenkonflikt.scrobbler.Secrets;
+import de.ressourcenkonflikt.scrobbler.SongQueue.Song;
 import de.ressourcenkonflikt.scrobbler.Util.Unixtime;
 import de.umass.lastfm.*;
 import de.umass.lastfm.cache.MemoryCache;
 import de.umass.lastfm.scrobble.ScrobbleResult;
 
 import java.net.UnknownHostException;
-import java.util.Date;
 
 /**
  * This file is part of scrobbler for ASTEROID.
@@ -79,12 +79,13 @@ public class Client {
         }
     }
 
-    public boolean scrobbleTrack(String artist, String track, Date date) throws NotAuthenticatedException {
+    public boolean scrobbleTrack(Song song) throws NotAuthenticatedException {
         if (!isAuthenticated) {
             throw new NotAuthenticatedException();
         }
 
-        ScrobbleResult scrobbleResult = Track.scrobble(artist, track, Unixtime.getUnixtime(date), session);
+        ScrobbleResult scrobbleResult = Track.scrobble(song.getArtist(),
+                song.getTrack(), Unixtime.getUnixtime(song.getPlayedAt()), session);
 
         if (scrobbleResult.isSuccessful()) {
             countTracksScrobbled++;
