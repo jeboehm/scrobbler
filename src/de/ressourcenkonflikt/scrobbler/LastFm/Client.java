@@ -47,7 +47,7 @@ public class Client {
     }
 
     public Client() {
-        Caller.getInstance().setUserAgent("scrobbler for Parrot Asteroid Smart");
+        Caller.getInstance().setUserAgent("scrobbler for Parrot ASTEROID Smart");
         Caller.getInstance().setCache(getCache());
     }
 
