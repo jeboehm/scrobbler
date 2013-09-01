@@ -37,8 +37,7 @@ public class StatusActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_status);
-        setScrobbleCounter(Client.getInstance().getTracksScrobbledCount());
-        setQueueCounter(Queue.getInstance().getSize());
+        refreshView();
     }
 
     private void flushQueue() {
@@ -57,6 +56,8 @@ public class StatusActivity extends Activity {
 
         Toast toast = Toast.makeText(this, getResources().getString(R.string.message_queue_successfully_flushed), 5);
         toast.show();
+
+        refreshView();
     }
 
     public void setScrobbleCounter(Integer counter) {
@@ -98,13 +99,13 @@ public class StatusActivity extends Activity {
         return true;
     }
 
-    /**
-     * Refresh the view.
-     */
     @Override
     protected void onResume() {
         super.onResume();
+        refreshView();
+    }
 
+    protected void refreshView() {
         setQueueCounter(Queue.getInstance().getSize());
         setScrobbleCounter(Client.getInstance().getTracksScrobbledCount());
     }
