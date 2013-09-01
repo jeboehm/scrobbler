@@ -6,12 +6,13 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.*;
 import de.ressourcenkonflikt.scrobbler.LastFm.Client;
 import de.ressourcenkonflikt.scrobbler.R;
 import de.ressourcenkonflikt.scrobbler.SongQueue.Queue;
 import de.ressourcenkonflikt.scrobbler.Util.ScrobbleHandler;
+
+import java.util.ArrayList;
 
 /**
  * This file is part of scrobbler for ASTEROID.
@@ -108,5 +109,21 @@ public class StatusActivity extends Activity {
     protected void refreshView() {
         setQueueCounter(Queue.getInstance().getSize());
         setScrobbleCounter(Client.getInstance().getTracksScrobbledCount());
+        refreshTrackList();
+    }
+
+    private boolean trackListLoaded = false;
+
+    protected void refreshTrackList() {
+        if (!trackListLoaded) {
+            ScrobbleHandler handler = new ScrobbleHandler(this);
+
+            ListView trackList = (ListView) findViewById(R.id.status_list_view);
+
+            ArrayList<String> tracks = handler.getLastTracks();
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, tracks);
+            trackList.setAdapter(adapter);
+            trackListLoaded = true;
+        }
     }
 }
