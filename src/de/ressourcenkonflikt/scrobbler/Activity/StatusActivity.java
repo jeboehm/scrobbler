@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.*;
 import de.ressourcenkonflikt.scrobbler.LastFm.Client;
 import de.ressourcenkonflikt.scrobbler.R;
@@ -109,16 +110,49 @@ public class StatusActivity extends Activity {
     protected void refreshView() {
         setQueueCounter(Queue.getInstance().getSize());
         setScrobbleCounter(Client.getInstance().getTracksScrobbledCount());
-        refreshTrackList();
+        refreshTrackListInBackground();
     }
+
+    protected static Thread performOnBackgroundThread(final Runnable runnable) {
+        final Thread thread = new Thread() {
+            @Override
+            public void run() {
+                runnable.run();
+            }
+        };
+
+        thread.start();
+        return thread;
+    }
+
+    protected void refreshTrackListInBackground() {
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                refreshTrackList();
+            }
+        };
+
+        performOnBackgroundThread(runnable);
+    }
+
+    private ArrayList<String> trackList;
 
     protected void refreshTrackList() {
         ScrobbleHandler handler = new ScrobbleHandler(this);
+        trackList = handler.getLastTracks();
 
-        ListView trackList = (ListView) findViewById(R.id.status_list_view);
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                ProgressBar progressBar = (ProgressBar) findViewById(R.id.status_progressbar);
+                ListView trackList = (ListView) findViewById(R.id.status_list_view);
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(),
+                        android.R.layout.simple_list_item_1, StatusActivity.this.trackList);
+                trackList.setAdapter(adapter);
 
-        ArrayList<String> tracks = handler.getLastTracks();
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, tracks);
-        trackList.setAdapter(adapter);
+                progressBar.setVisibility(View.INVISIBLE);
+            }
+        });
     }
 }
