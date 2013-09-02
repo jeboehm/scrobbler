@@ -112,18 +112,13 @@ public class StatusActivity extends Activity {
         refreshTrackList();
     }
 
-    private boolean trackListLoaded = false;
-
     protected void refreshTrackList() {
-        if (!trackListLoaded) {
-            ScrobbleHandler handler = new ScrobbleHandler(this);
+        ScrobbleHandler handler = new ScrobbleHandler(this);
 
-            ListView trackList = (ListView) findViewById(R.id.status_list_view);
+        ListView trackList = (ListView) findViewById(R.id.status_list_view);
 
-            ArrayList<String> tracks = handler.getLastTracks();
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, tracks);
-            trackList.setAdapter(adapter);
-            trackListLoaded = true;
-        }
+        ArrayList<String> tracks = handler.getLastTracks();
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, tracks);
+        trackList.setAdapter(adapter);
     }
 }
