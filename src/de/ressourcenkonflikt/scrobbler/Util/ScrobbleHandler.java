@@ -93,26 +93,21 @@ public class ScrobbleHandler {
         return getPreferences().getBoolean("enabled", false);
     }
 
-    public ArrayList<String> getLastTracks() {
-        ArrayList<String> songs;
-        ArrayList<Song> recentTracks;
+    public ArrayList<Song> getLastTracks() {
+        ArrayList<Song> lastTracks;
 
-        songs = new ArrayList<String>();
+        lastTracks = new ArrayList<Song>();
 
         if (con_checker.getIsOnline() && authenticateClient()) {
             try {
-                recentTracks = Client.getInstance().getRecentTracks(1, 5);
-                Log.i(getClass().getCanonicalName(), String.format("Fetched %1$s tracks.", recentTracks.size()));
-
-                for (Song song : recentTracks) {
-                    songs.add(String.format("%1s - %2s", song.getArtist(), song.getTrack()));
-                }
+                lastTracks = Client.getInstance().getRecentTracks(1, 5);
+                Log.i(getClass().getCanonicalName(), String.format("Fetched %1$s tracks.", lastTracks.size()));
             } catch (NotAuthenticatedException e) {
                 Log.e(getClass().getCanonicalName(), "Could not authenticate, aborting..");
             }
         }
 
-        return songs;
+        return lastTracks;
     }
 
     public int scrobbleSong(Song song) {
