@@ -3,14 +3,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/menu_main_flush_queue"
-        android:title="@string/menu_main_flush_queue"
-        android:icon="@drawable/ic_menu_upload"/>
+        android:title="@string/menu_main_flush_queue"/>
     <item
         android:id="@+id/menu_main_preferences"
-        android:title="@string/menu_main_preferences"
-        android:icon="@drawable/ic_menu_preferences"/>
+        android:title="@string/menu_main_preferences"/>
     <item
         android:id="@+id/menu_main_about"
-        android:title="@string/menu_main_about"
-        android:icon="@drawable/ic_menu_info_details"/>
+        android:title="@string/menu_main_about"/>
 </menu>
