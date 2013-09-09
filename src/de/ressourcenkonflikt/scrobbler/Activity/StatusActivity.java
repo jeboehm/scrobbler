@@ -3,14 +3,12 @@ package de.ressourcenkonflikt.scrobbler.Activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.View;
+import android.view.*;
 import android.widget.*;
 import de.ressourcenkonflikt.scrobbler.LastFm.Client;
 import de.ressourcenkonflikt.scrobbler.R;
 import de.ressourcenkonflikt.scrobbler.SongQueue.Queue;
+import de.ressourcenkonflikt.scrobbler.SongQueue.Song;
 import de.ressourcenkonflikt.scrobbler.Util.ScrobbleHandler;
 
 import java.util.ArrayList;
@@ -36,7 +34,7 @@ import java.util.ArrayList;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 public class StatusActivity extends Activity {
-    private ArrayList<String> trackList;
+    private ArrayList<Song> trackList;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -178,10 +176,15 @@ public class StatusActivity extends Activity {
 
                 progressBar = (ProgressBar) findViewById(R.id.status_progressbar);
                 trackList = (ListView) findViewById(R.id.status_list_view);
-                adapter = new ArrayAdapter<String>(getApplicationContext(),
-                        android.R.layout.simple_list_item_1, StatusActivity.this.trackList);
-                trackList.setAdapter(adapter);
 
+                adapter = new ArrayAdapter<String>(getApplicationContext(),
+                        android.R.layout.simple_list_item_1);
+
+                for (Song song : StatusActivity.this.trackList) {
+                    adapter.add(song.toString());
+                }
+
+                trackList.setAdapter(adapter);
                 progressBar.setVisibility(View.INVISIBLE);
             }
         });
