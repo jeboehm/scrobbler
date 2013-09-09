@@ -86,6 +86,10 @@ public class StatusActivity extends Activity {
                 Intent activity_about = new Intent(this, AboutActivity.class);
                 startActivity(activity_about);
                 break;
+
+            case R.id.menu_main_refresh:
+                refreshTrackListInBackground();
+                break;
         }
 
         return true;
@@ -123,6 +127,12 @@ public class StatusActivity extends Activity {
     }
 
     protected void refreshTrackListInBackground() {
+        ProgressBar progressBar = (ProgressBar) findViewById(R.id.status_progressbar);
+        ListView trackList = (ListView) findViewById(R.id.status_list_view);
+
+        progressBar.setVisibility(View.VISIBLE);
+        trackList.setAdapter(null);
+
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
