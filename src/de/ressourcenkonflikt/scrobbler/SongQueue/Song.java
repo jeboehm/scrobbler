@@ -58,4 +58,8 @@ public class Song {
         return compare_song.getArtist().equalsIgnoreCase(artist)
                 && compare_song.getTrack().equalsIgnoreCase(track);
     }
+
+    public String toString() {
+        return String.format("%1s - %2s", getArtist(), getTrack());
+    }
 }
