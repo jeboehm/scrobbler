@@ -2,9 +2,8 @@
 <resources>
     <item name="dialog_preferences_option_label" type="id"/>
     <item name="dialog_preferences_option_value" type="id"/>
-    <item name="status_text_scrobblecounter" type="id"/>
-    <item name="status_text_queuecounter" type="id"/>
     <item name="about_textview" type="id"/>
     <item name="status_list_view" type="id"/>
     <item name="status_progressbar" type="id"/>
+    <item name="status_text" type="id"/>
 </resources>

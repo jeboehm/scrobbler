@@ -62,16 +62,6 @@ public class StatusActivity extends Activity {
         refreshView();
     }
 
-    public void setScrobbleCounter(Integer counter) {
-        TextView view = (TextView) findViewById(R.id.status_text_scrobblecounter);
-        view.setText(counter.toString());
-    }
-
-    public void setQueueCounter(Integer counter) {
-        TextView view = (TextView) findViewById(R.id.status_text_queuecounter);
-        view.setText(counter.toString());
-    }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -108,8 +98,15 @@ public class StatusActivity extends Activity {
     }
 
     protected void refreshView() {
-        setQueueCounter(Queue.getInstance().getSize());
-        setScrobbleCounter(Client.getInstance().getTracksScrobbledCount());
+        TextView statusText = (TextView) findViewById(R.id.status_text);
+        statusText.setText(
+                String.format(
+                        getText(R.string.status_text).toString(),
+                        Queue.getInstance().getSize(),
+                        Client.getInstance().getTracksScrobbledCount()
+                )
+        );
+
         refreshTrackListInBackground();
     }
 
