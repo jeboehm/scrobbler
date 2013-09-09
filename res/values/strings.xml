@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Scrobbler for ASTEROID</string>
-    <string name="app_name_home">Scrobbler</string>
+    <string name="app_name">Scrobbler</string>
     <string name="button_ok">OK</string>
     <string name="button_cancel">Cancel</string>
     <string name="title_preferences">Settings</string>
