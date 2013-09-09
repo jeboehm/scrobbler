@@ -36,10 +36,10 @@ import java.util.ArrayList;
  */
 public class Client {
     private static Client ourInstance = new Client();
-    private Session session;
-    private int countTracksScrobbled = 0;
 
-    private boolean isAuthenticated = false;
+    private Session session;
+    private int countTracksScrobbled;
+    private boolean isAuthenticated;
     private String authenticatedUsername;
     private String authenticatedPassword;
 
@@ -50,6 +50,8 @@ public class Client {
     public Client() {
         Caller.getInstance().setUserAgent("scrobbler for Parrot ASTEROID Smart");
         Caller.getInstance().setCache(new MemoryCache());
+        isAuthenticated = false;
+        countTracksScrobbled = 0;
     }
 
     /**
@@ -82,11 +84,13 @@ public class Client {
     }
 
     public boolean scrobbleTrack(Song song) throws NotAuthenticatedException {
+        ScrobbleResult scrobbleResult;
+
         if (!isAuthenticated) {
             throw new NotAuthenticatedException();
         }
 
-        ScrobbleResult scrobbleResult = Track.scrobble(song.getArtist(),
+        scrobbleResult = Track.scrobble(song.getArtist(),
                 song.getTrack(), Unixtime.getUnixtime(song.getPlayedAt()), session);
 
         if (scrobbleResult.isSuccessful()) {
@@ -97,12 +101,15 @@ public class Client {
     }
 
     public ArrayList<Song> getRecentTracks(int page, int count) throws NotAuthenticatedException {
+        ArrayList<Song> songs;
+        PaginatedResult<Track> recentTracks;
+
         if (!isAuthenticated) {
             throw new NotAuthenticatedException();
         }
 
-        ArrayList<Song> songs = new ArrayList<Song>();
-        PaginatedResult<Track> recentTracks = User.getRecentTracks(session.getUsername(), page, count, session.getApiKey());
+        songs = new ArrayList<Song>();
+        recentTracks = User.getRecentTracks(session.getUsername(), page, count, session.getApiKey());
 
         for (Track track : recentTracks) {
             songs.add(TrackTransformer.transform(track));

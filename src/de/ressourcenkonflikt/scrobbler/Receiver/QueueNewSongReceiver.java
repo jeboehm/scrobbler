@@ -38,7 +38,9 @@ public class QueueNewSongReceiver extends BroadcastReceiver {
             }
 
             while (Queue.getInstance().getSize() > 0) {
-                int result = handler.scrobbleSong(Queue.getInstance().get());
+                int result;
+
+                result = handler.scrobbleSong(Queue.getInstance().get());
 
                 if (result == ScrobbleHandler.RESULT_STOP) {
                     break;
@@ -48,8 +50,11 @@ public class QueueNewSongReceiver extends BroadcastReceiver {
     }
 
     private boolean queueSong(String artist, String track) {
-        Queue queue = Queue.getInstance();
-        Song song = new Song(artist, track);
+        Queue queue;
+        Song song;
+
+        queue = Queue.getInstance();
+        song = new Song(artist, track);
 
         if (queue.add(song)) {
             Log.i(getClass().getCanonicalName(),

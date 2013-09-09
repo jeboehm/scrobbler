@@ -35,7 +35,9 @@ public class AboutActivity extends Activity {
     }
 
     protected void setAboutText() {
-        TextView textview = (TextView) findViewById(R.id.about_textview);
+        TextView textview;
+
+        textview = (TextView) findViewById(R.id.about_textview);
         textview.setText(Html.fromHtml(getResources().getString(R.string.text_about)));
     }
 }

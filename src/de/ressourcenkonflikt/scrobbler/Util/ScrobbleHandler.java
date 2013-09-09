@@ -94,11 +94,14 @@ public class ScrobbleHandler {
     }
 
     public ArrayList<String> getLastTracks() {
-        ArrayList<String> songs = new ArrayList<String>();
+        ArrayList<String> songs;
+        ArrayList<Song> recentTracks;
+
+        songs = new ArrayList<String>();
 
         if (con_checker.getIsOnline() && authenticateClient()) {
             try {
-                ArrayList<Song> recentTracks = Client.getInstance().getRecentTracks(1, 5);
+                recentTracks = Client.getInstance().getRecentTracks(1, 5);
                 Log.i(getClass().getCanonicalName(), String.format("Fetched %1$s tracks.", recentTracks.size()));
 
                 for (Song song : recentTracks) {
@@ -144,12 +147,16 @@ public class ScrobbleHandler {
     }
 
     private void sendNotification(String title, String text, String ticker) {
-        NotificationManager notification_manager =
-                (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-        Notification new_notification = new Notification(R.drawable.ic_app_logo, ticker, System.currentTimeMillis());
+        NotificationManager notification_manager;
+        Notification new_notification;
+        Intent target_intent;
+        PendingIntent pendingIntent;
 
-        Intent target_intent = new Intent(context, StatusActivity.class);
-        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, target_intent, Intent.FLAG_ACTIVITY_NEW_TASK);
+        notification_manager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        new_notification = new Notification(R.drawable.ic_app_logo, ticker, System.currentTimeMillis());
+
+        target_intent = new Intent(context, StatusActivity.class);
+        pendingIntent = PendingIntent.getActivity(context, 0, target_intent, Intent.FLAG_ACTIVITY_NEW_TASK);
 
         new_notification.defaults |= Notification.DEFAULT_SOUND;
         new_notification.flags |= Notification.FLAG_AUTO_CANCEL;

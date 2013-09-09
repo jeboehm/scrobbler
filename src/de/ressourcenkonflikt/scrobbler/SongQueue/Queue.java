@@ -24,14 +24,17 @@ import java.util.ArrayList;
  */
 public class Queue {
     private static Queue ourInstance = new Queue();
-    private ArrayList<Song> queue = new ArrayList<Song>();
-    private ArrayList<Song> queue_history = new ArrayList<Song>();
+
+    private ArrayList<Song> queue;
+    private ArrayList<Song> queue_history;
 
     public static Queue getInstance() {
         return ourInstance;
     }
 
     private Queue() {
+        queue = new ArrayList<Song>();
+        queue_history = new ArrayList<Song>();
     }
 
     public int getSize() {
@@ -39,7 +42,9 @@ public class Queue {
     }
 
     public boolean add(Song new_song) {
-        ArrayList<Song> merged_queue = new ArrayList<Song>();
+        ArrayList<Song> merged_queue;
+
+        merged_queue = new ArrayList<Song>();
         merged_queue.addAll(queue);
         merged_queue.addAll(queue_history);
 

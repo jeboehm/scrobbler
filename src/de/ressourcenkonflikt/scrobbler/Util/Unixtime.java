@@ -24,7 +24,9 @@ import java.util.Date;
  */
 public class Unixtime {
     public static int getUnixtime(Date date) {
-        long unixtime = date.getTime() / 1000L;
+        long unixtime;
+
+        unixtime = date.getTime() / 1000L;
 
         return (int) unixtime;
     }

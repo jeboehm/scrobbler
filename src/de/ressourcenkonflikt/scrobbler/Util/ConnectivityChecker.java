@@ -37,7 +37,8 @@ public class ConnectivityChecker {
      * @return True if we have access to the internet (i hope so).
      */
     public boolean getIsOnline() {
-        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager cm;
+        cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
 
         if (cm != null) {
             for (NetworkInfo info : cm.getAllNetworkInfo()) {

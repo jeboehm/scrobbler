@@ -36,6 +36,8 @@ import java.util.ArrayList;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 public class StatusActivity extends Activity {
+    private ArrayList<String> trackList;
+
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_status);
@@ -43,20 +45,23 @@ public class StatusActivity extends Activity {
     }
 
     private void flushQueue() {
-        ScrobbleHandler handler =
-                new ScrobbleHandler(this);
+        ScrobbleHandler handler;
+        Toast toast;
+
+        handler = new ScrobbleHandler(this);
 
         while (Queue.getInstance().getSize() > 0) {
-            int result = handler.scrobbleSong(Queue.getInstance().get());
+            int result;
+            result = handler.scrobbleSong(Queue.getInstance().get());
 
             if (result == ScrobbleHandler.RESULT_STOP) {
-                Toast toast = Toast.makeText(this, getResources().getString(R.string.message_could_not_flush_queue), 5);
+                toast = Toast.makeText(this, getResources().getString(R.string.message_could_not_flush_queue), 5);
                 toast.show();
                 return;
             }
         }
 
-        Toast toast = Toast.makeText(this, getResources().getString(R.string.message_queue_successfully_flushed), 5);
+        toast = Toast.makeText(this, getResources().getString(R.string.message_queue_successfully_flushed), 5);
         toast.show();
 
         refreshView();
@@ -64,7 +69,9 @@ public class StatusActivity extends Activity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
+        MenuInflater inflater;
+
+        inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_main, menu);
 
         return true;
@@ -72,19 +79,21 @@ public class StatusActivity extends Activity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        Intent startIntent;
+
         switch (item.getItemId()) {
             case R.id.menu_main_flush_queue:
                 flushQueue();
                 break;
 
             case R.id.menu_main_preferences:
-                Intent activity_preferences = new Intent(this, PreferencesActivity.class);
-                startActivity(activity_preferences);
+                startIntent = new Intent(this, PreferencesActivity.class);
+                startActivity(startIntent);
                 break;
 
             case R.id.menu_main_about:
-                Intent activity_about = new Intent(this, AboutActivity.class);
-                startActivity(activity_about);
+                startIntent = new Intent(this, AboutActivity.class);
+                startActivity(startIntent);
                 break;
 
             case R.id.menu_main_refresh:
@@ -102,10 +111,15 @@ public class StatusActivity extends Activity {
     }
 
     protected void refreshView() {
-        TextView statusText = (TextView) findViewById(R.id.status_text);
+        TextView statusText;
+        String text;
+
+        text = getText(R.string.status_text).toString();
+        statusText = (TextView) findViewById(R.id.status_text);
+
         statusText.setText(
                 String.format(
-                        getText(R.string.status_text).toString(),
+                        text,
                         Queue.getInstance().getSize(),
                         Client.getInstance().getTracksScrobbledCount()
                 )
@@ -115,7 +129,9 @@ public class StatusActivity extends Activity {
     }
 
     protected static Thread performOnBackgroundThread(final Runnable runnable) {
-        final Thread thread = new Thread() {
+        final Thread thread;
+
+        thread = new Thread() {
             @Override
             public void run() {
                 runnable.run();
@@ -127,13 +143,17 @@ public class StatusActivity extends Activity {
     }
 
     protected void refreshTrackListInBackground() {
-        ProgressBar progressBar = (ProgressBar) findViewById(R.id.status_progressbar);
-        ListView trackList = (ListView) findViewById(R.id.status_list_view);
+        ProgressBar progressBar;
+        ListView trackList;
+        Runnable runnable;
+
+        progressBar = (ProgressBar) findViewById(R.id.status_progressbar);
+        trackList = (ListView) findViewById(R.id.status_list_view);
 
         progressBar.setVisibility(View.VISIBLE);
         trackList.setAdapter(null);
 
-        Runnable runnable = new Runnable() {
+        runnable = new Runnable() {
             @Override
             public void run() {
                 refreshTrackList();
@@ -143,18 +163,22 @@ public class StatusActivity extends Activity {
         performOnBackgroundThread(runnable);
     }
 
-    private ArrayList<String> trackList;
-
     protected void refreshTrackList() {
-        ScrobbleHandler handler = new ScrobbleHandler(this);
+        ScrobbleHandler handler;
+
+        handler = new ScrobbleHandler(this);
         trackList = handler.getLastTracks();
 
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                ProgressBar progressBar = (ProgressBar) findViewById(R.id.status_progressbar);
-                ListView trackList = (ListView) findViewById(R.id.status_list_view);
-                ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(),
+                ProgressBar progressBar;
+                ListView trackList;
+                ArrayAdapter<String> adapter;
+
+                progressBar = (ProgressBar) findViewById(R.id.status_progressbar);
+                trackList = (ListView) findViewById(R.id.status_list_view);
+                adapter = new ArrayAdapter<String>(getApplicationContext(),
                         android.R.layout.simple_list_item_1, StatusActivity.this.trackList);
                 trackList.setAdapter(adapter);
 

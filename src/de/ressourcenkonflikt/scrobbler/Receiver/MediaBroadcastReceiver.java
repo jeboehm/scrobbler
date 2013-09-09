@@ -26,17 +26,20 @@ import android.content.Intent;
  */
 public class MediaBroadcastReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
-        String artist = intent.getStringExtra("artist");
-        String album = intent.getStringExtra("album");
-        String track = intent.getStringExtra("track");
+        String artist;
+        String track;
+        String album;
+        Intent new_event;
+
+        artist = intent.getStringExtra("artist");
+        album = intent.getStringExtra("album");
+        track = intent.getStringExtra("track");
 
         if (intent.getAction().contentEquals("com.android.music.metachanged")) {
             if (artist != null && track != null) {
                 // Send new event
-                Intent new_event = new Intent();
-
+                new_event = new Intent();
                 new_event.setAction("de.ressourcenkonflikt.scrobbler.queue.newitem");
-
                 new_event.putExtra("song_artist", artist);
                 new_event.putExtra("song_album", album);
                 new_event.putExtra("song_track", track);
