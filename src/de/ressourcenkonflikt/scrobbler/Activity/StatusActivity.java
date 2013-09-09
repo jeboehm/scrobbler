@@ -39,6 +39,11 @@ public class StatusActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_status);
+
+        ListView listview;
+        listview = (ListView) findViewById(R.id.status_list_view);
+        registerForContextMenu(listview);
+
         refreshView();
     }
 
@@ -188,5 +193,20 @@ public class StatusActivity extends Activity {
                 progressBar.setVisibility(View.INVISIBLE);
             }
         });
+    }
+
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        AdapterView.AdapterContextMenuInfo info;
+        info = (AdapterView.AdapterContextMenuInfo) menuInfo;
+        String[] menuItems;
+
+        if (v.getId() == R.id.status_list_view) {
+            menu.setHeaderTitle(trackList.get(info.position).toString());
+            menuItems = getResources().getStringArray(R.array.status_contextmenu);
+
+            for (int i = 0; i < menuItems.length; i++) {
+                menu.add(Menu.NONE, i, i, menuItems[i]);
+            }
+        }
     }
 }
