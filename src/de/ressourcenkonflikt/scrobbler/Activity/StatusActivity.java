@@ -206,4 +206,22 @@ public class StatusActivity extends Activity {
             }
         }
     }
+
+    public boolean onContextItemSelected(MenuItem item) {
+        AdapterView.AdapterContextMenuInfo info;
+        Song selectedSong;
+        Toast toast;
+
+        info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        selectedSong = trackList.get(info.position);
+
+        if (handler.removeScrobble(selectedSong)) {
+            toast = Toast.makeText(this, getResources().getString(R.string.message_scrobble_deleted_successfully), 5);
+            toast.show();
+        }
+
+        refreshTrackListInBackground();
+
+        return true;
+    }
 }

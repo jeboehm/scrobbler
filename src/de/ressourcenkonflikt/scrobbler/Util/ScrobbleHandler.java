@@ -141,6 +141,10 @@ public class ScrobbleHandler {
         return RESULT_STOP;
     }
 
+    public boolean removeScrobble(Song song) {
+        return Client.getInstance().removeScrobble(song);
+    }
+
     private void sendNotification(String title, String text, String ticker) {
         NotificationManager notification_manager;
         Notification new_notification;

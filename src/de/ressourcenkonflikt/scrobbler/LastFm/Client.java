@@ -121,4 +121,17 @@ public class Client {
     public int getTracksScrobbledCount() {
         return countTracksScrobbled;
     }
+
+    public boolean removeScrobble(Song song) {
+        Result result;
+
+        result = Library.removeScrobble(
+                song.getArtist(),
+                song.getTrack(),
+                Unixtime.getUnixtime(song.getPlayedAt()),
+                session
+        );
+
+        return result.isSuccessful();
+    }
 }
