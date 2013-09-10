@@ -35,6 +35,7 @@ import java.util.ArrayList;
  */
 public class StatusActivity extends Activity {
     private ArrayList<Song> trackList;
+    private ScrobbleHandler handler;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,14 +45,13 @@ public class StatusActivity extends Activity {
         listview = (ListView) findViewById(R.id.status_list_view);
         registerForContextMenu(listview);
 
+        handler = new ScrobbleHandler(this);
+
         refreshView();
     }
 
     private void flushQueue() {
-        ScrobbleHandler handler;
         Toast toast;
-
-        handler = new ScrobbleHandler(this);
 
         while (Queue.getInstance().getSize() > 0) {
             int result;
@@ -167,9 +167,6 @@ public class StatusActivity extends Activity {
     }
 
     protected void refreshTrackList() {
-        ScrobbleHandler handler;
-
-        handler = new ScrobbleHandler(this);
         trackList = handler.getLastTracks();
 
         runOnUiThread(new Runnable() {
