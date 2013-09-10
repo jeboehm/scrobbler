@@ -122,8 +122,12 @@ public class Client {
         return countTracksScrobbled;
     }
 
-    public boolean removeScrobble(Song song) {
+    public boolean removeScrobble(Song song) throws NotAuthenticatedException {
         Result result;
+
+        if (!isAuthenticated) {
+            throw new NotAuthenticatedException();
+        }
 
         result = Library.removeScrobble(
                 song.getArtist(),

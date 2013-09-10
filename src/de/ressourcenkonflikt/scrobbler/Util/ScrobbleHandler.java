@@ -142,7 +142,21 @@ public class ScrobbleHandler {
     }
 
     public boolean removeScrobble(Song song) {
-        return Client.getInstance().removeScrobble(song);
+        boolean result = false;
+
+        if (con_checker.getIsOnline() && authenticateClient()) {
+            try {
+                result = Client.getInstance().removeScrobble(song);
+            } catch (NotAuthenticatedException e) {
+                Log.e(getClass().getCanonicalName(), "Could not authenticate, aborting..");
+            }
+        }
+
+        if (result) {
+            Log.i(getClass().getCanonicalName(), String.format("Deleted a scrobble: %1$s", song.toString()));
+        }
+
+        return result;
     }
 
     private void sendNotification(String title, String text, String ticker) {
